@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "outDir": "build",
-    "rootDir": "./src",
+    "rootDir": "./",
     "sourceMap": true,
     "strict": true,
     "target": "es5",
@@ -19,6 +19,6 @@
     "pretty": true,
     "resolveJsonModule": true
   },
-  "include": ["src"],
+  "include": ["src/"],
   "exclude": ["node_modules"]
 }

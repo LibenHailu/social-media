@@ -1,0 +1,23 @@
+# docker compose up -d elasticsearch kibaba
+version: "3.9"
+services:
+  # rabbitmq:
+  #   container_name: "rabbitmq_container",
+  #   image: 
+  #   ports:
+  #     - 15672:15672 
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=smuser
+  #     - RABBITMQ_DEFAULT_PASS=smpass
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-wolfi:8.17.4
+    ports:
+      - 9200:9200
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.17.4
+    ports:
+      - 5601:5601
+
+
