@@ -1,23 +1,61 @@
-# docker compose up -d elasticsearch kibaba
+# docker compose up -d elasticsearch kibana rabbitmq
 version: "3.9"
 services:
-  # rabbitmq:
-  #   container_name: "rabbitmq_container",
-  #   image: 
-  #   ports:
-  #     - 15672:15672 
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=smuser
-  #     - RABBITMQ_DEFAULT_PASS=smpass
-  elasticsearch:
-    container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch-wolfi:8.17.4
+  rabbitmq:
+    container_name: "sm_rabbitmq_container"
+    image: rabbitmq:3.13-rc-management-alpine
+    restart: always
     ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=smuser
+      - RABBITMQ_DEFAULT_PASS=smpass
+
+  elasticsearch:
+    container_name: sm_elasticsearch_container
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+    restart: always
+    environment:
+      ES_JAVA_OPTS: -Xmx1g -Xms1g
+      bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      # network.host: 0.0.0.0
+      # transport.host: 127.0.0.1
+      # http.host: 0.0.0.0
+      # xpack.security.enabled: "true"
+      xpack.security.enabled: "false"
+      xpack.security.authc.api_key.enabled: "true"
+      xpack.monitoring.collection.enabled: "true"
+      xpack.security.enrollment.enabled: "true"
+      # xpack.security.authc.token.enabled: "true"
+      # ELASTIC_PASSWORD: admin1234
+    ports:
+      - 9300:9300
       - 9200:9200
+    volumes:
+      - ./docker-volumes/elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - elastic
+
   kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:8.17.4
+    container_name: sm_kibana_container
+    image: docker.elastic.co/kibana/kibana:8.12.2
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOSTS=["http://sm_elasticsearch_container:9200"]
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=kibana
+      - ELASTICSEARCH_SERVICEACCOUNT_TOKEN=AAEAAWVsYXN0aWMva2liYW5hL2pvYmJlci1raWJhbmE6N3BWZ0ItZWxSY21wMEJ0Y3ZKNTlHZw
+      - XPACK_FLEET_AGENTS_ELASTICSEARCH_HOSTS=["http://elasticsearch_container:9200"]
     ports:
       - 5601:5601
-
-
+    networks:
+      - elastic
+    volumes:
+      - ./kibana.yml/:/usr/share/kibana/config/kibana.yml:ro
+    depends_on:
+      - elasticsearch
+networks:
+  elastic:
+    name: elastic
