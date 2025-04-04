@@ -1,7 +1,6 @@
 import { Client } from '@elastic/elasticsearch';
-import { winstonLogger } from '@liben_hailu/sm-shared';
+import { winstonLogger,Logger } from '@liben_hailu/sm-shared';
 import { ClusterHealthResponse } from '@elastic/elasticsearch/lib/api/types';
-import { Logger } from 'winston';
 
 import { config } from './config';
 

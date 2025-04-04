@@ -1,10 +1,11 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.4",
   "types": "./src/index.d.ts",
   "description": "Helpers library for Social Media app",
   "engines": {
     "node": ">=20"
   },
+  "main": "./build/src/index.js",
   "scripts": {
     "build": "tsc"
   },

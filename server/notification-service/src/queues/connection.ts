@@ -1,7 +1,7 @@
 import client, { Channel } from 'amqplib';
 import { winstonLogger, Logger } from '@liben_hailu/sm-shared';
 
-import { config } from '@/config';
+import { config } from './../config';
 
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'notificationQueueConnection', 'debug');
 

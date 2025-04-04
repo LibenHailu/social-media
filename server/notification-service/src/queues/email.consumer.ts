@@ -1,9 +1,9 @@
-import { config } from '@/config';
-import { IEmailLocals, winstonLogger } from '@liben_hailu/sm-shared';
+import { IEmailLocals, winstonLogger,Logger } from '@liben_hailu/sm-shared';
 import { Channel, ConsumeMessage } from 'amqplib';
-import { Logger } from 'winston';
-import { createConnection } from '@/queues/connection';
-import { sendEmail } from '@/queues/mail.transport';
+
+import { config } from './../config';
+import { createConnection } from './connection';
+import { sendEmail } from './mail.transport';
 
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'emailConsumer', 'debug');
 
@@ -35,4 +35,4 @@ async function consumeAuthEmailMessages(channel: Channel): Promise<void> {
     }
 }
 
-export {consumeAuthEmailMessages}
+export {consumeAuthEmailMessages};

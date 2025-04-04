@@ -4,11 +4,12 @@ import http from 'http';
 import { winstonLogger, Logger } from '@liben_hailu/sm-shared';
 import { Application } from 'express';
 import { Channel } from 'amqplib';
-import { config } from '@/config';
-import { healthRoutes } from '@/routes';
-import { checkConnection } from '@/elasticsearch';
-import { createConnection } from '@/queues/connection';
-import { consumeAuthEmailMessages } from '@/queues/email.consumer';
+
+import { consumeAuthEmailMessages } from './queues/email.consumer';
+import { config } from './config';
+import { healthRoutes } from './routes';
+import { createConnection } from './queues/connection';
+import { checkConnection } from './elasticsearch';
 
 
 const SERVER_PORT = 4001;

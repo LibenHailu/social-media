@@ -1,7 +1,7 @@
-import { winstonLogger, IEmailLocals } from '@liben_hailu/sm-shared';
-import { config } from '@/config';
-import { emailTemplates } from '@/helpers';
-import { Logger } from 'winston';
+import { winstonLogger, IEmailLocals, Logger} from '@liben_hailu/sm-shared';
+
+import { config } from './../config';
+import { emailTemplates } from './../helpers';
 
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'mailTransport', 'debug');
 

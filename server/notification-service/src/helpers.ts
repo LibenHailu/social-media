@@ -1,10 +1,10 @@
 import path from 'path';
 
-import { IEmailLocals, winstonLogger } from '@liben_hailu/sm-shared';
-import { Logger } from 'winston';
-import { config } from '@/config';
+import { IEmailLocals, winstonLogger, Logger} from '@liben_hailu/sm-shared';
 import nodemailer, { Transporter } from 'nodemailer';
 import Email from 'email-templates';
+
+import { config } from './config';
 
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'mailTransportHelper', 'debug');
 
