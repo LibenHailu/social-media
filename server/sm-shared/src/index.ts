@@ -13,3 +13,5 @@ export {
 export { Logger, winstonLogger } from "./logger"
 
 export { IEmailLocals } from "./email.interface"
+
+export { IAuth, IAuthDocument, IAuthPayload, IAuthResponse, IAuthUser, IEmailMessageDetails, IForgotPassword, IResetPassword, ISignInPayload, ISignUpPayload } from "./auth.interface"
