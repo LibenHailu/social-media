@@ -108,6 +108,34 @@ services:
       - ELASTIC_APM_SECRET_TOKEN=
     depends_on:
       - elasticsearch
+  auth:
+    container_name: sm_auth_container
+    build:
+      context: ./server/auth-service
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - 4002:4002
+    env_file: ./server/auth-service/.env
+    environment:
+      - ENABLE_APM=0
+      - GATEWAY_JWT_TOKEN=1282722b942e08c8a6cb033aa6ce850e
+      - JWT_TOKEN=8db8f85991bb28f45ac0107f2a1b349c
+      - NODE_ENV=development
+      - API_GATEWAY_URL=http://gateway_container:4000
+      - CLIENT_URL=http://localhost:3000
+      - RABBITMQ_ENDPOINT=amqp://jobber:jobberpass@localhost:5672
+      - MYSQL_DB=postgres://jobber:api@localhost:5432/jobber_reviews
+      - CLOUD_NAME=rehoboth
+      - CLOUD_API_KEY=877167593399642
+      - CLOUD_API_SECRET=U2TE6Z0TtYLC1ZWV0Ez2XBvOz3w
+      - ELASTIC_SEARCH_URL=http://elasticsearch_container:9200
+      - ELASTIC_APM_SERVER_URL=http://localhost:8200
+      - ELASTIC_APM_SECRET_TOKEN=
+    depends_on:
+      - elasticsearch
+      - mysql
+
 
 
 networks:
