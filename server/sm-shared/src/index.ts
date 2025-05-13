@@ -18,6 +18,8 @@ export { IAuth, IAuthDocument, IAuthPayload, IAuthResponse, IAuthUser, IEmailMes
 
 export { IUserDocument } from "./user.interface"
 
+export { IFollowDocument } from "./follow.interface"
+
 export { firstLetterUppercase, isDataURL, isEmail, lowerCase, toUpperCase } from "./helpers"
 
 export { verifyGatewayRequest } from "./gateway-middleware"
