@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { AxiosService } from '../../services/axios';
 import { config } from '../../config';
-import { IAuth } from '@liben_hailu/jobber-shared';
+import { IAuth } from '@liben_hailu/sm-shared';
 
 export let axiosAuthInstance: ReturnType<typeof axios.create>;
 

@@ -1,7 +1,7 @@
 import { sequelize } from '@auth/database';
 import { IAuthDocument } from '@liben_hailu/sm-shared';
 import { compare, hash } from 'bcryptjs';
-import { DataTypes, Model, ModelDefined, Optional } from 'sequelize';
+import { DataTypes, Model, ModelDefined, Optional, Sequelize } from 'sequelize';
 
 const SALT_ROUND = 10;
 
@@ -50,7 +50,7 @@ const AuthModel: ModelDefined<IAuthDocument, AuthUserCreationAttributes> & AuthM
     },
     createdAt: {
         type: DataTypes.DATE,
-        defaultValue: Date.now()
+        defaultValue: Sequelize.fn('NOW')
     },
     passwordResetToken: {
         type: DataTypes.STRING,

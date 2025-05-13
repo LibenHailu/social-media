@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { sign } from 'jsonwebtoken';
-import { config } from '@gateway/config';
+import { config } from '../config';
 
 export class AxiosService {
     public axios: ReturnType<typeof axios.create>;
@@ -19,7 +19,7 @@ export class AxiosService {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                gatewayToken: requestGatewayToken
+                'gatewayToken': requestGatewayToken
             },
             withCredentials: true
         });

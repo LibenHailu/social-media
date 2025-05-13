@@ -1,7 +1,7 @@
 import { IUserDocument } from '@liben_hailu/sm-shared';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { getRandomUsers, getUserById, getUserByUsername } from '../../services/user.services';
+import { getRandomUsers, getUserById, getUserByUsername } from '../../services/user.service';
 
 const id = async (req: Request, res: Response): Promise<void> => {
   const user: IUserDocument | null = await getUserById(req.params.userId);

@@ -2,7 +2,7 @@ import { BadRequestError, IUserDocument } from '@liben_hailu/sm-shared';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { userSchema } from '../../schemes/user';
-import { updateUser } from '../../services/user.services';
+import { updateUser } from '../../services/user.service';
 
 const user = async (req: Request, res: Response): Promise<void> => {
   const { error } = await Promise.resolve(userSchema.validate(req.body));

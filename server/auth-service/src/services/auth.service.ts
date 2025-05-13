@@ -4,9 +4,27 @@ import { omit } from 'lodash';
 import { Model, Op } from 'sequelize';
 import { config } from '../config';
 import { AuthModel } from '../models/auth.schema';
+import { publishDirectMessage } from '../queues/auth.producer';
+import { authChannel } from '../server';
 
 export async function createAuthUser(data: IAuthDocument): Promise<IAuthDocument> {
     const result: Model = await AuthModel.create(data);
+    const messageDetails = {
+        username: result.dataValues.username!,
+        fullname: result.dataValues.username!,
+        email: result.dataValues.email!,
+        profilePicture: result.dataValues.profilePicture!,
+        country: result.dataValues.country!,
+        createdAt: result.dataValues.createdAt!,
+        type: 'auth'
+    };
+    await publishDirectMessage(
+        authChannel,
+        'sm-user-update',
+        'update-user',
+        JSON.stringify(messageDetails),
+        'User details sent to user service.'
+    );
     const userData: IAuthDocument = omit(result.dataValues, ['password']) as IAuthDocument;
     return userData;
 }

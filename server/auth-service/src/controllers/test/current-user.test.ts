@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import { authMock, authMockRequest, authMockResponse, authUserPayload } from './mocks/auth.mock';
 import { read, resendEmail } from '../current-user';
 import * as auth from '../../services/auth.service';
-import * as helper from '@liben_hailu/jobber-shared';
+import * as helper from '@liben_hailu/sm-shared';
 import { Sequelize } from 'sequelize';
 
-jest.mock('@liben_hailu/jobber-shared');
+jest.mock('@liben_hailu/sm-shared');
 jest.mock('../../services/auth.service');
 jest.mock('../../queues/auth.producer');
 jest.mock('@elastic/elasticsearch');

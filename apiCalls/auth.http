@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:4000
+
+@urlPath = api/gateway/v1/auth
+
+###
+POST  {{baseUrl}}/{{urlPath}}/signup
+Content-Type: application/jsongateway
+Accept: application/json
+withCredentials: true
+
+{
+    "username": "danny",
+    "email": "danny@test.com",
+    "password": "qwerty",
+    "country": "France",
+    "profilePicture": ""
+}

@@ -1,20 +1,20 @@
 import http from 'http';
 
+import { CustomError, IAuthPayload, IErrorResponse, winstonLogger } from '@liben_hailu/sm-shared';
+import { Channel } from 'amqplib';
+import compression from 'compression';
+import cors from 'cors';
+import { Application, NextFunction, Request, Response, json, urlencoded } from 'express';
 import 'express-async-errors';
-import { CustomError, IAuthPayload, IErrorResponse, winstonLogger } from '@liben_hailu/jobber-shared';
+import helmet from 'helmet';
+import hpp from 'hpp';
+import { verify } from 'jsonwebtoken';
 import { Logger } from 'winston';
 import { config } from './config';
-import { Application, Request, Response, NextFunction, json, urlencoded } from 'express';
-import hpp from 'hpp';
-import helmet from 'helmet';
-import cors from 'cors';
-import { verify } from 'jsonwebtoken';
-import compression from 'compression';
 import { checkConnection } from './elasticsearch';
-import { appRoutes } from './routes';
 import { createConnection } from './queues/connection';
-import { Channel } from 'amqplib';
-import { consumeBuyerDirectMessage, consumeReviewFanoutMessages, consumeSeedGigDirectMessages, consumeSellerDirectMessage } from './queues/user.consumer';
+import { consumeUserDirectMessage } from './queues/user.consumer';
+import { appRoutes } from './routes';
 
 const SERVER_PORT = 4003;
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'usersServer', 'debug');
@@ -62,10 +62,7 @@ const routesMiddleware = (app: Application): void => {
 
 const startQueues = async (): Promise<void> => {
   const userChannel: Channel = await createConnection() as Channel;
-  await consumeBuyerDirectMessage(userChannel);
-  await consumeSellerDirectMessage(userChannel);
-  await consumeReviewFanoutMessages(userChannel);
-  await consumeSeedGigDirectMessages(userChannel);
+  await consumeUserDirectMessage(userChannel);
 };
 
 const startElasticSearch = (): void => {
