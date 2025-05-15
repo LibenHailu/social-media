@@ -22,6 +22,8 @@ export { IFollowDocument } from "./follow.interface"
 
 export { IConversationDocument, IMessageDocument } from "./chat.interface"
 
+export { IPostDocument } from "./post.interface"
+
 export { firstLetterUppercase, isDataURL, isEmail, lowerCase, toUpperCase } from "./helpers"
 
 export { verifyGatewayRequest } from "./gateway-middleware"
