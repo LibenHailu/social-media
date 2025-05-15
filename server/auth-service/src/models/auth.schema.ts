@@ -15,6 +15,10 @@ interface AuthModelInstanceMethods extends Model {
 type AuthUserCreationAttributes = Optional<IAuthDocument, 'id' | 'createdAt' | 'passwordResetToken' | 'passwordResetExpires'>;
 
 const AuthModel: ModelDefined<IAuthDocument, AuthUserCreationAttributes> & AuthModelInstanceMethods = sequelize.define('auths', {
+    fullName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     username: {
         type: DataTypes.STRING,
         allowNull: false

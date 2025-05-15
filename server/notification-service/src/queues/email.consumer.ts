@@ -16,9 +16,9 @@ async function consumeAuthEmailMessages(channel: Channel): Promise<void> {
         const routingKey = 'auth-email';
         const queueName = 'auth-email-queue';
         await channel.assertExchange(exchangeName, 'direct');
-        const jobberQueue = await channel.assertQueue(queueName, { durable: true, autoDelete: false });
-        await channel.bindQueue(jobberQueue.queue, exchangeName, routingKey);
-        channel.consume(jobberQueue.queue, async (msg: ConsumeMessage | null) => {
+        const smQueue = await channel.assertQueue(queueName, { durable: true, autoDelete: false });
+        await channel.bindQueue(smQueue.queue, exchangeName, routingKey);
+        channel.consume(smQueue.queue, async (msg: ConsumeMessage | null) => {
             const { receiverEmail, username, verifyLink, resetLink, template, otp } = JSON.parse(msg!.content.toString());
             const locals: IEmailLocals = {
                 appLink: `${config.CLIENT_URL}`,

@@ -20,6 +20,8 @@ export { IUserDocument } from "./user.interface"
 
 export { IFollowDocument } from "./follow.interface"
 
+export { IConversationDocument, IMessageDocument } from "./chat.interface"
+
 export { firstLetterUppercase, isDataURL, isEmail, lowerCase, toUpperCase } from "./helpers"
 
 export { verifyGatewayRequest } from "./gateway-middleware"

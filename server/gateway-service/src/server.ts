@@ -16,12 +16,15 @@ import { isAxiosError } from 'axios';
 import { config } from './config';
 import { appRoutes } from './routes';
 import { elasticSearch } from './elasticsearch';
+import { Server, Socket } from "socket.io"
+import { SocketIOAppHandler } from "./sockets/socket"
+import { axiosMessageInstance } from '@services/api/message.service';
 
 
 const SERVER_PORT = 4000;
 const DEFAULT_ERROR_CODE = 500;
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'apiGatewayServer', 'debug');
-// export let socketIO: Server;
+export let socketIO: Server;
 
 export class GatewayServer {
   private app: Application;
@@ -33,7 +36,7 @@ export class GatewayServer {
   public start(): void {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
-    this.routesMiddleware(this.app);
+    this.routesMiddleware(this.app); 
     this.startElasticSearch();
     this.errorHandler(this.app);
     this.startServer(this.app);
@@ -65,12 +68,7 @@ export class GatewayServer {
     app.use((req: Request, _res: Response, next: NextFunction): Promise<void> => {
       if (req?.session?.jwt) {
         axiosAuthInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
-        axiosBuyerInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
-        axiosSellerInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
-        axiosGigInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
         axiosMessageInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
-        axiosOrderInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
-        axiosReviewInstance.defaults.headers['Authorization'] = `Bearer ${req.session?.jwt}`;
       }
       next();
     });
@@ -116,12 +114,28 @@ export class GatewayServer {
   private async startServer(app: Application): Promise<void> {
     try {
       const httpServer: http.Server = new http.Server(app);
+      const socketIO: Server = await this.createSocketIO(httpServer);
       this.startHttpServer(httpServer);
+      this.socketIOConnections(socketIO);
     } catch (error) {
       log.log('error', 'GatewayService startServer() error method:', error);
     }
   }
 
+  private async createSocketIO(httpServer: http.Server): Promise<Server> {
+    const io: Server = new Server(httpServer, {
+      cors: {
+        origin: `${config.CLIENT_URL}`,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+      }
+    });
+  // const pubClient = createClient({ url: config.REDIS_HOST });
+  // const subClient = pubClient.duplicate();
+  // await Promise.all([pubClient.connect(), subClient.connect()]);
+  // io.adapter(createAdapter(pubClient, subClient));
+    socketIO = io;
+    return io;
+  }
 
   private async startHttpServer(httpServer: http.Server): Promise<void> {
     try {
@@ -132,5 +146,10 @@ export class GatewayServer {
     } catch (error) {
       log.log('error', 'GatewayService startServer() error method:', error);
     }
+  }
+
+  private socketIOConnections(io: Server): void {
+    const socketIoApp = new SocketIOAppHandler(io);
+    socketIoApp.listen();
   }
 }

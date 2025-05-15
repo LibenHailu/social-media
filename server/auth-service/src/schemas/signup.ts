@@ -1,6 +1,10 @@
 import Joi, { ObjectSchema } from 'joi';
 
 const signupSchema: ObjectSchema = Joi.object().keys({
+     fullName: Joi.string().required().messages({
+        'string.base': 'Fullname must be a type of string',
+        'string.empty': 'Fullname is a required field'
+    }),
     username: Joi.string().min(4).max(12).required().messages({
         'string.base': 'Username must be a type of string',
         'string.min': 'Invalid username',

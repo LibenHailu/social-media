@@ -11,11 +11,11 @@ export async function createAuthUser(data: IAuthDocument): Promise<IAuthDocument
     const result: Model = await AuthModel.create(data);
     const messageDetails = {
         username: result.dataValues.username!,
-        fullname: result.dataValues.username!,
+        fullName: result.dataValues.fullName!,
         email: result.dataValues.email!,
         profilePicture: result.dataValues.profilePicture!,
+        profilePublicId: result.dataValues.profilePublicId!,
         country: result.dataValues.country!,
-        createdAt: result.dataValues.createdAt!,
         type: 'auth'
     };
     await publishDirectMessage(

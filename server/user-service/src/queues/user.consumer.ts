@@ -16,14 +16,14 @@ const consumeUserDirectMessage = async (channel: Channel): Promise<void> => {
         const routingKey = 'update-user';
         const queueName = 'user-update-queue';
         await channel.assertExchange(exchangeName, 'direct');
-        const jobberQueue: Replies.AssertQueue = await channel.assertQueue(queueName, { durable: true, autoDelete: false });
-        await channel.bindQueue(jobberQueue.queue, exchangeName, routingKey);
-        channel.consume(jobberQueue.queue, async (msg: ConsumeMessage | null) => {
+        const userQueue: Replies.AssertQueue = await channel.assertQueue(queueName, { durable: true, autoDelete: false });
+        await channel.bindQueue(userQueue.queue, exchangeName, routingKey);
+        channel.consume(userQueue.queue, async (msg: ConsumeMessage | null) => {
             const { type, userId, count } = JSON.parse(
                 msg!.content.toString()
             );
             if (type === 'auth') {
-                const { username, fullName, email, description, profilePicture, country, createdAt } = JSON.parse(msg!.content.toString());
+                const { username, fullName, email, description, profilePicture, country, profilePublicId } = JSON.parse(msg!.content.toString());
                 const user: IUserDocument = {
                     fullName,
                     username,
@@ -31,7 +31,7 @@ const consumeUserDirectMessage = async (channel: Channel): Promise<void> => {
                     profilePicture,
                     country,
                     description,
-                    createdAt
+                    profilePublicId,
                 };
                 await createUser(user);
             } else if (type === 'update-follower-count') {

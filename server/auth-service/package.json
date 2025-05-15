@@ -22,7 +22,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "^8.10.0",
     "@faker-js/faker": "^8.2.0",
-    "@liben_hailu/sm-shared": "^0.1.2",
+    "@liben_hailu/sm-shared": "^0.1.4",
     "amqplib": "^0.10.3",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.1.0",

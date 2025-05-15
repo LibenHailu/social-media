@@ -26,9 +26,9 @@ export function start(app: Application): void {
 async function startQueues(): Promise<void> {
   const emailChannel: Channel = await createConnection() as Channel;
   await consumeAuthEmailMessages(emailChannel);
-  await emailChannel.assertExchange('jobber-email-notification', 'direct');
-  const message = JSON.stringify({ name: 'jobber', service: 'auth notification service' });
-  emailChannel.publish('jobber-email-notification', 'auth-email', Buffer.from(message));
+  await emailChannel.assertExchange('sm-email-notification', 'direct');
+  const message = JSON.stringify({ name: 'sm', service: 'auth notification service' });
+  emailChannel.publish('sm-email-notification', 'auth-email', Buffer.from(message));
 }
 
 function startElasticSearch(): void {

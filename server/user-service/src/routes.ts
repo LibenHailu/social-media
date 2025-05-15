@@ -1,7 +1,7 @@
+import { verifyGatewayRequest } from '@liben_hailu/sm-shared';
 import { Application } from 'express';
 import { healthRoutes } from './routes/health';
 import { userRoutes } from './routes/user';
-import { verifyGatewayRequest } from '@liben_hailu/sm-shared';
 
 const BASE_PATH = '/api/v1/user';
 

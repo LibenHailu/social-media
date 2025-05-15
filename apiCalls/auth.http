@@ -3,15 +3,50 @@
 @urlPath = api/gateway/v1/auth
 
 ###
+
 POST  {{baseUrl}}/{{urlPath}}/signup
-Content-Type: application/jsongateway
+Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
 {
-    "username": "danny",
-    "email": "danny@test.com",
-    "password": "qwerty",
-    "country": "France",
-    "profilePicture": ""
+    "fullName": "Kamuzu Kamuzu",
+    "username": "kamuzu",
+    "password": "kamuzu",
+    "country": "Ethiopia",
+    "email": "kamuzu1@gmail.com",
+    "profilePicture": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAEAAElEQVR4nAD/fwCAAJmCCTj5J0rpsgANqSOziVz+3u3mwqISRjTZ84o19N+sWA+UyaVYzqWp7n+kqdrUKe4X8wW5XyLjVnPzqzE+yH7WofGJj++Wh8i11ncb3knkEqaHv+buVgwwyQaheGy4L2Y2Rqm1J2pBS8G0Plv0Kz7RAAmt1/F2FzRu6EkJPJAJTmHNl9Lufj+KkmehawF9eyIIYbIdtR+vLHiecKTbCSs688Nb0PvpGAuRrRJdxy/U"
 }
+
+###
+
+POST {{baseUrl}}/{{urlPath}}/signup HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Kamuzu Kamuzu",
+    "username": "kamuzu5",
+    "password": "kamuzu",
+    "country": "Ethiopia",
+    "email": "kamuzu5@gmail.com",
+    "profilePicture": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAEAAElEQVR4nAD/fwCAAJmCCTj5J0rpsgANqSOziVz+3u3mwqISRjTZ84o19N+sWA+UyaVYzqWp7n+kqdrUKe4X8wW5XyLjVnPzqzE+yH7WofGJj++Wh8i11ncb3knkEqaHv+buVgwwyQaheGy4L2Y2Rqm1J2pBS8G0Plv0Kz7RAAmt1/F2FzRu6EkJPJAJTmHNl9Lufj+KkmehawF9eyIIYbIdtR+vLHiecKTbCSs688Nb0PvpGAuRrRJdxy/U"
+}
+
+fetch("http://localhost:4000/api/gateway/v1/auth/signup", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    
+    fullName: "Kamuzu Kamuzu",
+    username: "kamuzu5",
+    password: "kamuzu",
+    country: "Ethiopia",
+    email: "kamuzu5@gmail.com",
+    profilePicture: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAEAAElEQVR4nAD/fwCAAJmCCTj5J0rpsgANqSOziVz+3u3mwqISRjTZ84o19N+sWA+UyaVYzqWp7n+kqdrUKe4X8wW5XyLjVnPzqzE+yH7WofGJj++Wh8i11ncb3knkEqaHv+buVgwwyQaheGy4L2Y2Rqm1J2pBS8G0Plv0Kz7RAAmt1/F2FzRu6EkJPJAJTmHNl9Lufj+KkmehawF9eyIIYbIdtR+vLHiecKTbCSs688Nb0PvpGAuRrRJdxy/U"
+
+})
+})
+.then(res => res.json())
+.then(data => console.log(data));
