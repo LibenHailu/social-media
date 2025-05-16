@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 export async function read(req: Request, res: Response): Promise<void> {
   const { error } = await Promise.resolve(loginSchema.validate(req.body));
   if (error?.details) {
-    throw new BadRequestError(error.details[0].message, 'SignUp create() method error');
+    throw new BadRequestError(error.details[0].message, 'SignIp read() method error');
   }
   const { username, password } = req.body;
   const isValidEmail: boolean = isEmail(username);

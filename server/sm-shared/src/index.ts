@@ -24,6 +24,8 @@ export { IConversationDocument, IMessageDocument } from "./chat.interface"
 
 export { IPostDocument } from "./post.interface"
 
+export { IReactionDocument } from "./reaction.interface"
+
 export { firstLetterUppercase, isDataURL, isEmail, lowerCase, toUpperCase } from "./helpers"
 
 export { verifyGatewayRequest } from "./gateway-middleware"
