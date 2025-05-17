@@ -13,7 +13,7 @@ import { config } from './config';
 import { checkConnection } from './elasticsearch';
 import { appRoutes } from './routes';
 
-const SERVER_PORT = 4003;
+const SERVER_PORT = 4004;
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'followServer', 'debug');
 
 const start = (app: Application): void => {

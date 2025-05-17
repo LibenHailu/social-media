@@ -12,7 +12,7 @@ import { Logger } from 'winston';
 import { StatusCodes } from 'http-status-codes';
 import compression from 'compression';
 import { isAxiosError } from 'axios';
-
+import 'express-async-errors';
 import { config } from './config';
 import { appRoutes } from './routes';
 import { elasticSearch } from './elasticsearch';

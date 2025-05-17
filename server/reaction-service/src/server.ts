@@ -15,7 +15,7 @@ import { appRoutes } from './routes';
 import { Channel } from 'amqplib';
 import { createConnection } from './queues/connection';
 
-const SERVER_PORT = 4003;
+const SERVER_PORT = 4007;
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'followServer', 'debug');
 let reactionChannel: Channel
 

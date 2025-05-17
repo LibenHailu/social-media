@@ -16,7 +16,7 @@ import { createConnection } from './queues/connection';
 import { consumePostDirectMessage } from './queues/user.consumer';
 import { appRoutes } from './routes';
 
-const SERVER_PORT = 4003;
+const SERVER_PORT = 4006;
 const log: Logger = winstonLogger(`${config.ELASTIC_SEARCH_URL}`, 'usersServer', 'debug');
 
 const start = (app: Application): void => {
