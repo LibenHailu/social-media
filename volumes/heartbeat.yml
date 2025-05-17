@@ -1,0 +1,57 @@
+heartbeat.config.monitors:
+  path: ${path.config}/monitors.d/*.yml
+  reload.enabled: false
+  reload.period: 5s
+
+heartbeat.monitors:
+  - type: http
+    id: sm-api-gateway
+    name: SM API Gateway Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.0.42:4000/gateway-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: sm-notification
+    name: SM Notification Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.0.42:4001/notification-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: sm-auth
+    name: SM Auth Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.0.42:4002/auth-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: sm-users
+    name: SM Users Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.0.42:4003/user-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+
+  - type: http
+    id: sm-chat
+    name: SM Chat Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.0.42:4005/chat-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+processors:
+- add_cloud_metadata: ~
+- add_docker_metadata: ~
+
+monitoring.enabled: true
+
+output.elasticsearch:
+  hosts: ['http://elasticsearch_container:9200']
+  username: 'elastic'
+  password: 'admin1234'

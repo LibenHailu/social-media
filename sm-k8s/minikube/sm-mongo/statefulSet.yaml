@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sm-mongo
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: sm-mongo
+  serviceName: sm-mongo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sm-mongo
+    spec:
+      containers:
+      - name: sm-mongo
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+          name: sm-mongo
+        volumeMounts:
+        - name: mongo-local-storage
+          mountPath: /data/db
+      volumes:
+      - name: mongo-local-storage
+        persistentVolumeClaim:
+          claimName: mongo-pvc
