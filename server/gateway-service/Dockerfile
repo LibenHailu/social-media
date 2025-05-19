@@ -1,22 +1,34 @@
-FROM node:21-alpine3.18 as builder
+FROM node:20-alpine AS builder
 
-WORKDIR /app
+WORKDIR /usr/src/app
+
+# Copy package files first for better caching
 COPY package*.json ./
-COPY tsconfig.json ./
-COPY src ./src
-RUN npm install -g npm@10.5.0
-RUN npm ci && npm run build
 
-FROM node:21-alpine3.18
+# Install dependencies (including devDependencies for building)
+RUN npm install
 
-WORKDIR /app
-RUN apk add --no-cache curl
+# Copy all source files
+COPY . .
+
+# Build the application (adjust this to match your build script)
+RUN npm run build
+
+# Stage 2: Serve the application
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+# Install production dependencies only
 COPY package*.json ./
-COPY tsconfig.json ./
-RUN npm install -g pm2@latest npm@10.5.0
-RUN npm ci --production
-COPY --from=builder /app/build ./build
+RUN npm install --only=production
 
+# Copy built assets from builder stage
+COPY --from=builder /usr/src/app/build ./build
+COPY --from=builder /usr/src/app/node_modules ./node_modules
+
+# Expose the port your app runs on
 EXPOSE 4000
 
-CMD [ "npm", "run", "start" ]
+# Command to run the server
+CMD ["npm", "run","start"]
