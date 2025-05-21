@@ -1,6 +1,6 @@
 import { BadRequestError, IAuthDocument, isEmail } from '@liben_hailu/sm-shared';
 import { Request, Response } from 'express';
-import { loginSchema } from '../schemas/signin';
+import { loginSchema } from '../schemes/signin';
 import { getUserByEmail, getUserByUsername, signToken } from '../services/auth.service';
 import { AuthModel } from '../models/auth.schema';
 import { omit } from 'lodash';

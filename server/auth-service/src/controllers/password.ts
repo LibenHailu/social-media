@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-import { changePasswordSchema, emailSchema, passwordSchema } from '../schemas/password';
+import { changePasswordSchema, emailSchema, passwordSchema } from '../schemes/password';
 import { getAuthUserByPasswordToken, getUserByEmail, getUserByUsername, updatePassword, updatePasswordToken } from '@auth/services/auth.service';
 import { Request, Response } from 'express';
 import { config } from '../config';

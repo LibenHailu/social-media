@@ -1,4 +1,4 @@
-import { signupSchema } from '../schemas/signup';
+import { signupSchema } from '../schemes/signup';
 import { createAuthUser, getUserByUsernameOrEmail, signToken } from '../services/auth.service';
 import { BadRequestError, firstLetterUppercase, IAuthDocument, IEmailMessageDetails, uploads } from '@liben_hailu/sm-shared';
 import { UploadApiResponse } from 'cloudinary';
