@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-reaction
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sm-reaction
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: sm-reaction
+    spec:
+      containers:
+      - name: sm-reaction
+        image: libenhailu/sm-reaction:stable
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "0.5"
+          requests:
+            cpu: 100m
+            memory: 150Mi
+        ports:
+        - name: reaction
+          containerPort: 4007
+        env:
+          - name: ENABLE_APM
+            value: "1"
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: database-url
+          - name: GATEWAY_JWT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: gateway-jwt-token
+          - name: JWT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: jwt-token
+          - name: NODE_ENV
+            value: 'production'
+          - name: API_GATEWAY_URL
+            value: "http://sm-gateway:4000"
+          - name: RABBITMQ_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: rabbitmq-endpoint
+          - name: CLOUD_NAME
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: cloud-name
+          - name: CLOUD_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: cloud-api-key
+          - name: CLOUD_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: cloud-api-secret
+          - name: REDIS_HOST
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: redis-host
+          - name: ELASTIC_SEARCH_URL
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: elastic-search-url
+          - name: ELASTIC_APM_SERVER_URL
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: elastic-apm-server-url
+          - name: ELASTIC_APM_SECRET_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: elastic-apm-secret-token

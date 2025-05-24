@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Expose the port your app runs on
-EXPOSE 4006
+EXPOSE 4007
 
 # Command to run the server
 CMD ["node", "./build/src/app.js"]

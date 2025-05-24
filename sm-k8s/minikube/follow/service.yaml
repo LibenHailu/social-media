@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sm-follow
+  namespace: production
+spec:
+  type: ClusterIP
+  selector:
+    app: sm-follow
+  ports:
+  - name: follow
+    port: 4004
+    targetPort: 4004
+    protocol: TCP

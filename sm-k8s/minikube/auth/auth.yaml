@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-chat
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sm-chat
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: sm-chat
+    spec:
+      containers:
+      - name: sm-chat
+        image: libenhailu/sm-chat:stable
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "0.5"
+          requests:
+            cpu: 100m
+            memory: 150Mi
+        ports:
+        - name: chat
+          containerPort: 4002
+        env:
+          - name: ENABLE_APM
+            value: "1"
+          - name: GATEWAY_JWT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: gateway-jwt-token
+          - name: JWT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: jwt-token
+          - name: NODE_ENV
+            value: "production"
+          - name: API_GATEWAY_URL
+            value: "http://sm-gateway:4000"
+          - name: CLIENT_URL
+            value: "http://localhost:3000"
+          - name: RABBITMQ_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: sm-rabbitmq-endpoint
+          - name: MYSQL_DB
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: mysql-db-url
+          - name: CLOUD_NAME
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: cloud-name
+          - name: CLOUD_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: cloud-api-key
+          - name: CLOUD_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: cloud-api-secret
+          - name: ELASTIC_SEARCH_URL
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: sm-elasticsearch-url
+          - name: ELASTIC_APM_SERVER_URL
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: sm-elastic-apm-server-url
+          - name: ELASTIC_APM_SECRET_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: sm-backend-secret
+                key: sm-elastic-apm-secret-token

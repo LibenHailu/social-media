@@ -302,28 +302,28 @@ spec:
         - name: ELASTICSEARCH_HOST
           valueFrom:
             secretKeyRef:
-              name: jobber-backend-secret
-              key: jobber-elasticsearch-host
+              name: sm-backend-secret
+              key: sm-elasticsearch-host
         - name: ELASTICSEARCH_USERNAME
           valueFrom:
             secretKeyRef:
-              name: jobber-backend-secret
-              key: jobber-elasticsearch-username
+              name: sm-backend-secret
+              key: sm-elasticsearch-username
         - name: ELASTICSEARCH_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: jobber-backend-secret
-              key: jobber-elasticsearch-password
+              name: sm-backend-secret
+              key: sm-elasticsearch-password
         # - name: ELASTIC_CLOUD_ID
         #   valueFrom:
         #     secretKeyRef:
-        #       name: jobber-backend-secret
-        #       key: jobber-elastic-cloud-id
+        #       name: sm-backend-secret
+        #       key: sm-elastic-cloud-id
         # - name: ELASTIC_CLOUD_AUTH
         #   valueFrom:
         #     secretKeyRef:
-        #       name: jobber-backend-secret
-        #       key: jobber-elastic-cloud-auth
+        #       name: sm-backend-secret
+        #       key: sm-elastic-cloud-auth
         - name: NODE_NAME
           valueFrom:
             fieldRef:

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sm-gateway-ingress
+  namespace: production
+  annotations:  
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx 
+  defaultBackend: 
+    service:
+      name: sm-gateway
+      port: 
+        number: 4000
+  rules:
+  - host: sm.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /api/gateway/v1
+        backend:
+          service:
+            name: sm-gateway
+            port: 
+              number: 4000
