@@ -9,7 +9,7 @@ class ReactionRoutes {
     }
 
     public routes(): Router {
-        this.router.post('/upsert', Upsert.prototype.upsert);
+        this.router.post('/reaction/upsert', Upsert.prototype.upsert);
         return this.router;
     }
 }

@@ -10,9 +10,9 @@ class PostRoutes {
     }
 
     public routes(): Router {
-        this.router.post('/create', Create.prototype.post);
-        this.router.get('/id/:postId', Get.prototype.post);
-        this.router.get('/username/:username', Get.prototype.userPosts);
+        this.router.post('/post/create', Create.prototype.post);
+        this.router.get('/post/id/:postId', Get.prototype.post);
+        this.router.get('/post/username/:username', Get.prototype.userPosts);
         return this.router;
     }
 }
