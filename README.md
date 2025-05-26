@@ -26,7 +26,7 @@ This project is a distributed social media application project, with event drive
 * `elasticsearch`
   * `docker compose up -d elasticsearch`
 
-* [Volumes README file](../volumes/README.md)
+* [Volumes README file](https://github.com/LibenHailu/social-media/blob/main/volumes/README.md)
 
 Please start the microservices.
 * `follow service`
