@@ -25,10 +25,10 @@ class Config {
     public CLIENT_URL: string | undefined;
     public AUTH_BASE_URL: string | undefined;
     public USERS_BASE_URL: string | undefined;
-    public GIG_BASE_URL: string | undefined;
+    public Follow_BASE_URL: string | undefined;
     public MESSAGE_BASE_URL: string | undefined;
-    public ORDER_BASE_URL: string | undefined;
-    public REVIEW_BASE_URL: string | undefined;
+    public POST_BASE_URL: string | undefined;
+    public REACTION_BASE_URL: string | undefined;
     public REDIS_HOST: string | undefined;
     public ELASTIC_SEARCH_URL: string | undefined;
 
@@ -41,10 +41,10 @@ class Config {
         this.CLIENT_URL = process.env.CLIENT_URL || '';
         this.AUTH_BASE_URL = process.env.AUTH_BASE_URL || '';
         this.USERS_BASE_URL = process.env.USERS_BASE_URL || '';
-        this.GIG_BASE_URL = process.env.GIG_BASE_URL || '';
+        this.Follow_BASE_URL = process.env.Follow_BASE_URL || '';
         this.MESSAGE_BASE_URL = process.env.MESSAGE_BASE_URL || '';
-        this.ORDER_BASE_URL = process.env.ORDER_BASE_URL || '';
-        this.REVIEW_BASE_URL = process.env.REVIEW_BASE_URL || '';
+        this.POST_BASE_URL = process.env.POST_BASE_URL || '';
+        this.REACTION_BASE_URL = process.env.REACTION_BASE_URL || '';
         this.REDIS_HOST = process.env.REDIS_HOST || '';
         this.ELASTIC_SEARCH_URL = process.env.ELASTIC_SEARCH_URL || '';
     }
